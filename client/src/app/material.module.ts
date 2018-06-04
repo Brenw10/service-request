@@ -8,19 +8,20 @@ import {
     MatListModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule
 } from '@angular/material';
 
 @NgModule({
     imports: [
         MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule,
         MatSidenavModule, MatListModule, MatTableModule, MatFormFieldModule,
-        MatInputModule
+        MatInputModule, MatAutocompleteModule
     ],
     exports: [
         MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule,
         MatSidenavModule, MatListModule, MatTableModule, MatFormFieldModule,
-        MatInputModule
+        MatInputModule, MatAutocompleteModule
     ]
 })
 

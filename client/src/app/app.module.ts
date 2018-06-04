@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
 import { ApiService } from './api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RequestComponent } from './request/request.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     MenuComponent,
     UsersComponent,
     SkillsComponent,
-    HeaderComponent
+    HeaderComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,
