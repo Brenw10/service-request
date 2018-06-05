@@ -15,6 +15,7 @@ import { MaterialModule } from './material.module';
 import { ApiService } from './api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RequestComponent } from './request/request.component';
+import { AddressFieldComponent } from './address-field/address-field.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RequestComponent } from './request/request.component';
     UsersComponent,
     SkillsComponent,
     HeaderComponent,
-    RequestComponent
+    RequestComponent,
+    AddressFieldComponent
   ],
   imports: [
     BrowserModule,
