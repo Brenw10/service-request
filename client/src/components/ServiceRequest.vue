@@ -1,8 +1,9 @@
 <template>
     <b-table striped hover :items='items' :fields='fields'>
       <template slot='street' slot-scope='row'>
-        <b-form-input autocomplete="true" v-model="row.item.street"
-          type="text" placeholder="Entre com o endereço"></b-form-input>
+        <app-address-field></app-address-field>
+        <!-- <b-form-input autocomplete="true" v-model="row.item.street"
+          type="text" placeholder="Entre com o endereço"></b-form-input> -->
       </template>
       <template slot='number' slot-scope='row'>
         <b-form-input v-model="row.item.number" type="number"
