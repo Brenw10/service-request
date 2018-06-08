@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Service Request",
+  "name": "Service Request",
   "icons": [
     {
       "src": "favicon.ico",
