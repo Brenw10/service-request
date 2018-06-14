@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
 import api from '../constants/api';
-import geolocation from '../services/geolocation';
+import roadmap from '../services/roadmap';
 
 export default class Roadmap extends Component {
+  constructor() {
+    super();
+    this.state = {
+      directions: []
+    };
+  }
+  async componentWillReceiveProps(props) {
+    const config = roadmap.getDirectionsServiceConfig(props.locations);
+    const directions = await roadmap.getDirectionsService(config);
+    this.setState({ directions });
+  }
   render() {
-    geolocation.getDirectionsService(this.props.locations).then(console.log);
-
     const MyMapComponent = withScriptjs(withGoogleMap((props) =>
       <GoogleMap
         defaultZoom={14}
         defaultCenter={{ lat: -23.220727, lng: -45.901876 }} >
+        <DirectionsRenderer directions={this.state.directions} />
       </GoogleMap>
     ));
     return (
