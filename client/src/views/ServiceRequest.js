@@ -17,7 +17,7 @@ export default class ServiceRequest extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='container'>
         <RequestTable onChange={this.onAddressesChange.bind(this)} />
         <Roadmap locations={this.state.locations} />
       </div>
