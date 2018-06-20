@@ -22,7 +22,7 @@ export default class RequestTable extends Component {
       data: []
     };
   }
-  async onChangeAddress(data, address) {
+  async setAddress(data, address){
     const results = await geocodeByAddress(address);
     data.address = address;
     data.result = results[0];
@@ -37,6 +37,7 @@ export default class RequestTable extends Component {
     const { data } = this.state;
     data.splice(index, 1);
     this.setState({ data });
+    this.props.onChange(this.state.data);
   }
   render() {
     return (
@@ -58,7 +59,7 @@ export default class RequestTable extends Component {
                     {index + 1}º
                   </TableCell>
                   <TableCell>
-                    <AddressField onChange={address => this.onChangeAddress(value, address)} />
+                    <AddressField onChange={address => this.setAddress(value, address)} />
                   </TableCell>
                   <TableCell>
                     <AddressTypeField />

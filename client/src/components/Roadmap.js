@@ -27,9 +27,9 @@ export default class Roadmap extends Component {
       <MyMapComponent
         isMarkerShown
         googleMapURL={api.GOOGLE_MAP_URL}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px`, width: '100%' }} />}
-        mapElement={<div style={{ height: `100%` }} />}
+        loadingElement={<div className='full-width full-height' />}
+        containerElement={<div className='full-width full-height' />}
+        mapElement={<div className='full-width full-height' />}
       />
     );
   }
