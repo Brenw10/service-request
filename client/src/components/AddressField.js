@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
+import '../styles/AddressField.css';
 
 export default class AddressField extends Component {
   constructor() {
@@ -8,8 +9,10 @@ export default class AddressField extends Component {
       address: ''
     };
   }
+  componentWillReceiveProps(props) {
+    this.setState({ address: props.value });
+  }
   onChangeAddress(address) {
-    this.setState({ address });
     this.props.onChange(address);
   }
   renderAddressInput({ getInputProps, suggestions, getSuggestionItemProps }) {

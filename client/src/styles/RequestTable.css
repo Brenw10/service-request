@@ -1,3 +1,14 @@
-table.request-table>tfoot>tr>td {
+.request-table tr>td,
+.request-table tr>th {
+  text-align: center;
+}
+
+.request-table-container .toolbar {
+  display: block;
+  padding: 30px 30px 0 30px;
+}
+
+.request-table-container .toolbar h2 {
+  padding-bottom: 10px;
   text-align: center;
 }

@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { DELIVERY_TYPE } from '../constants';
 
 export default class AddressField extends Component {
   constructor() {
     super();
     this.state = {
-      options: [
-        { value: 'GET_PACKAGE', label: 'Pegar pacote' },
-        { value: 'LEAVE_PACKAGE', label: 'Deixar pacote' },
-      ],
-      selectedOption: { value: 'GET_PACKAGE', label: 'Pegar pacote' }
+      selectedOption: 'GET_PACKAGE'
     };
   }
+  renderItems() {
+    return DELIVERY_TYPE.map((type, index) => <MenuItem key={index} value={type.value}>{type.label}</MenuItem>);
+  }
   render() {
-    return <Select
-      value={this.state.selectedOption}
-      onChange={selectedOption => this.setState({ selectedOption })}
-      options={this.state.options}
-    />;
+    return (
+      <Select
+        className='full-width'
+        onChange={event => this.setState({ selectedOption: event.target.value })}
+        value={this.state.selectedOption} >
+        {this.renderItems()}
+      </Select>
+    );
   }
 }

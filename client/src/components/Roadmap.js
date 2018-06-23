@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
-import api from '../constants/api';
+import { GOOGLE_MAP_URL } from '../constants/api';
 import roadmap from '../services/roadmap';
 
 export default class Roadmap extends Component {
@@ -11,12 +11,13 @@ export default class Roadmap extends Component {
     };
   }
   async componentWillReceiveProps(props) {
+    if (!props.locations.length) return;
     const config = roadmap.getDirectionsServiceConfig(props.locations);
     const directions = await roadmap.getDirectionsService(config);
     this.setState({ directions });
   }
   render() {
-    const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+    const MapComponent = withScriptjs(withGoogleMap((props) =>
       <GoogleMap
         defaultZoom={14}
         defaultCenter={{ lat: -23.220727, lng: -45.901876 }} >
@@ -24,9 +25,9 @@ export default class Roadmap extends Component {
       </GoogleMap>
     ));
     return (
-      <MyMapComponent
+      <MapComponent
         isMarkerShown
-        googleMapURL={api.GOOGLE_MAP_URL}
+        googleMapURL={GOOGLE_MAP_URL}
         loadingElement={<div className='full-width full-height' />}
         containerElement={<div className='full-width full-height' />}
         mapElement={<div className='full-width full-height' />}

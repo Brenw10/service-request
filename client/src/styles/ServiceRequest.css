@@ -1,9 +1,9 @@
-.location-search-input {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  border: honeydew;
+.request-table th,
+.request-table td {
   padding: 10px;
-  font-size: 12px;
-  border-radius: 2px;
-  outline: none;
-  width: 95%;
+}
+
+.roadmap-paper {
+  height: 92%;
+  width: 50%;
 }

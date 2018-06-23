@@ -1,0 +1,28 @@
+.location-search-input {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: honeydew;
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 2px;
+  outline: none;
+  width: 90%;
+}
+
+.autocomplete-dropdown-container {
+  border-bottom: honeydew;
+  border-left: honeydew;
+  border-right: honeydew;
+  border-top: 1px solid #e6e6e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 2px 2px;
+  position: absolute;
+  z-index: 1;
+}
+
+.autocomplete-dropdown-container .suggestion-item,
+.autocomplete-dropdown-container .suggestion-item--active {
+  padding: 8px;
+  text-align: left;
+  background-color: #fff;
+  cursor: pointer;
+}

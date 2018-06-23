@@ -7,12 +7,15 @@ import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import AddressField from '../components/AddressField';
 import AddressTypeField from '../components/AddressTypeField';
-import { AwesomeButton } from 'react-awesome-button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { geocodeByAddress } from 'react-places-autocomplete';
-import 'react-awesome-button/dist/styles.css';
-import 'react-awesome-button/dist/themes/theme-one.css';
+import Checkbox from '@material-ui/core/Checkbox';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import '../styles/RequestTable.css';
 
 export default class RequestTable extends Component {
@@ -22,11 +25,11 @@ export default class RequestTable extends Component {
       data: []
     };
   }
-  async setAddress(data, address){
+  async setAddress(data, address) {
     const results = await geocodeByAddress(address);
     data.address = address;
     data.result = results[0];
-    this.props.onChange(this.state.data);
+    this.onChange();
   }
   addRow() {
     const { data } = this.state;
@@ -37,53 +40,94 @@ export default class RequestTable extends Component {
     const { data } = this.state;
     data.splice(index, 1);
     this.setState({ data });
-    this.props.onChange(this.state.data);
+    this.onChange();
+  }
+  isRowCompleted(row) {
+    const hasAddress = row.address && row.result;
+    return row && hasAddress;
+  }
+  onChange() {
+    const locations = this.state.data.filter(this.isRowCompleted);
+    this.props.onChange(locations);
+  }
+  renderTableBody() {
+    return this.state.data.map((value, index) =>
+      <TableRow key={index}>
+        <TableCell>
+          {index + 1}º
+        </TableCell>
+        <TableCell>
+          <AddressField onChange={address => this.setAddress(value, address)} value={value.address} />
+        </TableCell>
+        <TableCell>
+          <AddressTypeField />
+        </TableCell>
+        <TableCell>
+          <Tooltip id="tooltip-bottom" title="Pagamento nessa etapa" placement="bottom">
+            <Checkbox
+              color="primary"
+            />
+          </Tooltip>
+        </TableCell>
+        <TableCell>
+          <IconButton aria-label="delete" onClick={() => this.removeRow(index)}>
+            <DeleteIcon />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    );
+  }
+  renderTableHeader() {
+    return (
+      <TableRow>
+        <TableCell>Ordem</TableCell>
+        <TableCell>Rua</TableCell>
+        <TableCell>Tipo</TableCell>
+        <TableCell>Pagamento</TableCell>
+        <TableCell>Ações</TableCell>
+      </TableRow>
+    );
+  }
+  renderHeader() {
+    return (
+      <Toolbar className='toolbar'>
+        <Typography variant="title">
+          Solicitar Serviço
+        </Typography>
+        <Typography variant="subheading">
+          Etapas
+        </Typography>
+      </Toolbar>
+    );
+  }
+  renderTableFooter() {
+    return (
+      <TableRow>
+        <TableCell colSpan={5}>
+          <IconButton color="primary" aria-label="add" onClick={this.addRow.bind(this)}>
+            <AddIcon />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    );
   }
   render() {
     return (
-      <Table className='request-table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Ordem</TableCell>
-            <TableCell>Rua</TableCell>
-            <TableCell>O que fazer?</TableCell>
-            <TableCell>Ações</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-            this.state.data.map((value, index) => {
-              return (
-                <TableRow key={index}>
-                  <TableCell>
-                    {index + 1}º
-                  </TableCell>
-                  <TableCell>
-                    <AddressField onChange={address => this.setAddress(value, address)} />
-                  </TableCell>
-                  <TableCell>
-                    <AddressTypeField />
-                  </TableCell>
-                  <TableCell>
-                    <AwesomeButton size="icon" type="secondary" action={() => this.removeRow(index)}>
-                      <DeleteIcon />
-                    </AwesomeButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          }
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={4}>
-              <AwesomeButton size="small" type="primary" action={this.addRow.bind(this)}>
-                <AddIcon />
-              </AwesomeButton>
-            </TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+      <div className='request-table-container'>
+        {this.renderHeader()}
+        <Divider inset />
+        <Table className='request-table'>
+          <TableHead>
+            {this.renderTableHeader()}
+          </TableHead>
+          <TableBody>
+            {this.renderTableBody()}
+          </TableBody>
+          <TableFooter>
+            {this.renderTableFooter()}
+          </TableFooter>
+        </Table>
+      </div>
     );
   }
 }
